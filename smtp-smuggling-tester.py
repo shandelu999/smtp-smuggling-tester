@@ -1,38 +1,3 @@
-examples = """使用方式：
-
-由于本地电脑无法打开 25、587、465 端口，因此需将脚本放到可打该 3 个端口的 vps 上执行。
-
-在 vps 上，
-1、先安装 python3
-2、创建一个 python3 虚拟环境以隔离其他部署的项目
-3、在该虚拟环境里安装依赖项
-4、最后执行该脚本
-
-创建虚拟环境：
-python3 -m venv smtp-smuggling-tester
-激活虚拟环境：
-source smtp-smuggling-tester/bin/activate
-安装依赖项：
-pip install colorama dnspython
-执行脚本：
-python3 smtp-smuggling-tester.py
-退出虚拟环境
-deactivate
-
-退出 shell 后，重新登陆 vps 后，再次执行该脚本：
-source smtp-smuggling-tester/bin/activate
-python3 smtp-smuggling-tester.py
-
-执行脚本后，执行以下命令，并观察脚本反馈的打印信息：
-
-扫描入站 SMTP 服务器命令：
-python3 smtp_smuggling_scanner.py --setup-check YOUR@EMAIL.ADDRESS
-python3 smtp_smuggling_scanner.py YOUR@EMAIL.ADDRESS
-扫描出站 SMTP 服务器命令：
-python3 smtp_smuggling_scanner.py YOUR@RECEIVER.ADDRESS --outbound-smtp-server SOMESERVER.SMTP.SERVER --port 587 --starttls --sender-address YOUR@EMAIL.ADRESS --username YOUR@EMAIL.ADRESS --password PASSWORD --setup-check
-python3 smtp_smuggling_scanner.py YOUR@RECEIVER.ADDRESS --outbound-smtp-server SOMESERVER.SMTP.SERVER --port 587 --starttls --sender-address YOUR@EMAIL.ADRESS --username YOUR@EMAIL.ADRESS --password PASSWORD
-"""
-
 from colorama import Style
 from colorama import Fore
 import dns.resolver
@@ -67,6 +32,15 @@ outbound_eod_sequences = [
     "\r\r\n.\r\r\n",
     "\r\n\x00.\r\n"
 ]
+
+examples = """命令：
+扫描入站 SMTP 服务器命令：
+  python3 smtp-smuggling-tester.py --setup-check YOUR@EMAIL.ADDRESS
+  python3 smtp-smuggling-tester.py YOUR@EMAIL.ADDRESS
+扫描出站 SMTP 服务器命令：
+  python3 smtp-smuggling-tester.py YOUR@RECEIVER.ADDRESS --outbound-smtp-server SOMESERVER.SMTP.SERVER --port 587 --starttls --sender-address YOUR@EMAIL.ADRESS --username YOUR@EMAIL.ADRESS --password PASSWORD --setup-check
+  python3 smtp-smuggling-tester.py YOUR@RECEIVER.ADDRESS --outbound-smtp-server SOMESERVER.SMTP.SERVER --port 587 --starttls --sender-address YOUR@EMAIL.ADRESS --username YOUR@EMAIL.ADRESS --password PASSWORD
+"""
 
 class out:
     def green(self, msg):
